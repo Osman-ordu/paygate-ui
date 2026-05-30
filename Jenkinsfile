@@ -1,54 +1,107 @@
 pipeline {
     agent any
 
+    parameters {
+        string(
+            name: 'ROLLBACK_TO',
+            defaultValue: '',
+            description: 'Rollback: önceki commit SHA gir (örn: a1b2c3d). Boş bırakırsan son commit deploy edilir.'
+        )
+    }
+
     environment {
-        REPO_DIR  = '/opt/paygate-ui'
-        DIST_DIR  = '/var/www/ceptecash'
+        REPO_DIR      = '/opt/paygate-ui'
+        RELEASES_DIR  = '/var/www/releases'
+        LIVE_LINK     = '/var/www/ceptecash'
+        KEEP_RELEASES = '5'
     }
 
     stages {
-        stage('Pull') {
+
+        stage('Rollback') {
+            when { expression { params.ROLLBACK_TO?.trim() } }
             steps {
-                sh '''
-                    cd ${REPO_DIR}
-                    git pull origin main
-                '''
+                script {
+                    def tag = params.ROLLBACK_TO.trim()
+                    echo "⏪ Rolling back frontend to ${tag}"
+                    sh """
+                        [ -d "${RELEASES_DIR}/${tag}" ] || \
+                            (echo "HATA: ${RELEASES_DIR}/${tag} bulunamadı!" && exit 1)
+                        ln -sfn ${RELEASES_DIR}/${tag} ${LIVE_LINK}
+                        echo "✅ Live → ${RELEASES_DIR}/${tag}"
+                    """
+                }
+            }
+        }
+
+        stage('Pull') {
+            when { expression { !params.ROLLBACK_TO?.trim() } }
+            steps {
+                sh 'cd ${REPO_DIR} && git pull origin main'
             }
         }
 
         stage('Install') {
+            when { expression { !params.ROLLBACK_TO?.trim() } }
             steps {
-                sh '''
-                    cd ${REPO_DIR}
-                    npm ci
-                '''
+                sh 'cd ${REPO_DIR} && npm ci'
             }
         }
 
         stage('Build') {
+            when { expression { !params.ROLLBACK_TO?.trim() } }
             steps {
-                sh '''
-                    cd ${REPO_DIR}
-                    npm run build
-                '''
+                script {
+                    env.GIT_SHA = sh(
+                        script: 'cd ${REPO_DIR} && git rev-parse --short HEAD',
+                        returnStdout: true
+                    ).trim()
+                    sh """
+                        cd ${REPO_DIR}
+                        VITE_API_BASE_URL=https://ceptecash.com/api npm run build
+                        mkdir -p ${RELEASES_DIR}/${env.GIT_SHA}
+                        cp -r dist/. ${RELEASES_DIR}/${env.GIT_SHA}/
+                        echo "📦 Release hazır: ${RELEASES_DIR}/${env.GIT_SHA}"
+                    """
+                }
             }
         }
 
         stage('Deploy') {
+            when { expression { !params.ROLLBACK_TO?.trim() } }
             steps {
-                sh '''
-                    sudo rsync -a --delete ${REPO_DIR}/dist/ ${DIST_DIR}/
-                '''
+                sh 'ln -sfn ${RELEASES_DIR}/${GIT_SHA} ${LIVE_LINK}'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh 'curl -sf -o /dev/null https://ceptecash.com && echo "✅ Site erişilebilir" || echo "⚠️  Site kontrolü başarısız"'
+            }
+        }
+
+        stage('Cleanup Old Releases') {
+            when { expression { !params.ROLLBACK_TO?.trim() } }
+            steps {
+                sh """
+                    echo "Son ${KEEP_RELEASES} release tutuluyor..."
+                    ls -t ${RELEASES_DIR} | tail -n +\$(( ${KEEP_RELEASES} + 1 )) | xargs -r -I{} rm -rf ${RELEASES_DIR}/{} || true
+                """
             }
         }
     }
 
     post {
-        failure {
-            echo 'Frontend deploy FAILED!'
-        }
         success {
-            echo 'Frontend deploy OK.'
+            script {
+                def version = params.ROLLBACK_TO?.trim()
+                    ? "ROLLBACK → ${params.ROLLBACK_TO}"
+                    : "DEPLOY  → ${env.GIT_SHA}"
+                echo "✅ Frontend ${version}"
+            }
+        }
+        failure {
+            echo '❌ Pipeline FAILED — önceki versiyona dönmek için ROLLBACK_TO parametresiyle tekrar çalıştır.'
         }
     }
 }
