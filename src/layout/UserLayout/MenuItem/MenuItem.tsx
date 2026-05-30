@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu } from 'antd';
+import { Menu, Badge } from 'antd';
 import { getEncryptModuleData } from '../../../utils/general';
 import { menuData } from '../../../db/General';
+import { CallApi } from '../../../utils/services';
 import styles from './styles.module.scss';
 
 export default function MenuItem({ collapsed }: any) {
@@ -12,6 +13,19 @@ export default function MenuItem({ collapsed }: any) {
   const { pathname } = location;
   const perData = useMemo(() => getEncryptModuleData(), []);
   const permissionMap: any = new Map(perData?.map((item: any) => [item.moduleName, item.permissionScore]));
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    if ((permissionMap.get('UserApprovals') ?? 0) < 1) return;
+    const fetch = () =>
+      CallApi({ url: '/api/User/pending-count', method: 'GET' })
+        .then((res) => setPendingCount(res?.data ?? 0))
+        .catch(() => {});
+    fetch();
+    const interval = setInterval(fetch, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   const filteredMenuData = menuData.filter((item: any) => {
     if (item.submenu) {
       item.submenu = item.submenu.filter((subItem: any) => permissionMap.get(subItem.titleV) >= 1);
