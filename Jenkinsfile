@@ -18,7 +18,7 @@ pipeline {
         REPO_DIR      = '/opt/paygate-ui'
         RELEASES_DIR  = '/var/www/releases'
         LIVE_LINK     = '/var/www/ceptecash'
-        KEEP_RELEASES = '5'
+        KEEP_RELEASES = '10'
     }
 
     stages {
