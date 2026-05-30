@@ -10,28 +10,42 @@ export interface initialStateType {
   params?: object | [] | null;
 }
 
+let isRefreshing = false;
+
 const asyncFunc = async () => {
-  const token = localStorage.getItem('token');
-  const refreshToken = localStorage.getItem('refreshToken');
-  const { data } = await CallApi({
-    url: `/api/Auth/refreshToken`,
-    method: 'POST',
-    data: {
-      token: token,
-      refreshToken: refreshToken,
-    },
-  });
-  setLocalStorageItem('token', data.token);
-  setLocalStorageItem('refreshToken', data.refreshToken);
-  customHistory.go(0);
+  if (isRefreshing) return;
+  isRefreshing = true;
+  try {
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+    const { data } = await CallApi({
+      url: `/api/Auth/refreshToken`,
+      method: 'POST',
+      data: { token, refreshToken },
+    });
+    setLocalStorageItem('token', data.token);
+    setLocalStorageItem('refreshToken', data.refreshToken);
+    customHistory.go(0);
+  } catch {
+    clearLocalStorage();
+    customHistory.replace('/auth/login');
+  } finally {
+    isRefreshing = false;
+  }
 };
 
 axios.interceptors.response.use(
   (res) => res,
   (err) => {
-    const statusCode = err.response.status;
+    const statusCode = err.response?.status;
+    const url: string = err.config?.url ?? '';
     if (statusCode === 401) {
-      asyncFunc();
+      if (url.includes('/api/Auth/refreshToken')) {
+        clearLocalStorage();
+        customHistory.replace('/auth/login');
+      } else {
+        asyncFunc();
+      }
     } else if (statusCode === 498) {
       clearLocalStorage();
       customHistory.replace('/auth/login');
