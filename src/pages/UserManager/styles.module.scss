@@ -1,0 +1,26 @@
+.c-user-manager {
+
+  &__success {
+    color: #4CAF50;
+  }
+  &__danger {
+    color: #F44336;
+  }
+
+  &__danger,
+  &__success {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+
+  }
+  :global {
+    .dx-link.reset-button-a {
+    background-color: #101010 !important;
+    color: #ffffffed !important;
+    font-size: 14px !important;
+    height: 25px !important;
+    line-height: 25px !important;
+    }
+  }
+}

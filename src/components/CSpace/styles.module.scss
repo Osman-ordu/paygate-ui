@@ -1,0 +1,23 @@
+.c-space {
+  &.reconciliation {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 25px 0 35px;
+  }
+  &.detail {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+  &.otp {
+    margin-top: 15px;
+    p {
+      margin: 0;
+    }
+  }
+  &.tt {
+    margin-top: 25px;
+  }
+}

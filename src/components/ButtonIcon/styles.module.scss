@@ -1,0 +1,42 @@
+.c-buttonicon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #61677a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+  transition: all 0.7s ease;
+  cursor: pointer;
+
+  &.primary {
+    color: white;
+    background-color: #191919;
+  }
+  &.ghost {
+    background-color: transparent;
+    color: white;
+    border: none;
+    &:hover {
+      background-color: transparent;
+      color: white;
+      border: none;
+    }
+  }
+  &:hover {
+    filter: brightness(0.8);
+    color: yellow;
+    border: 1px solid yellow;
+  }
+  &:active {
+    filter: brightness(1);
+  }
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}

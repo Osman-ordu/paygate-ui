@@ -1,0 +1,51 @@
+.c-verify-form {
+  height: 20vh;
+  &__code-container {
+    display: flex;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #61677A;
+    max-width: 90%;
+    margin-left:10px;
+    margin-top: 10px;
+  }
+  &__code-label {
+    padding: 4px 11px;
+    border: none;
+    background-color: transparent;
+    border-bottom-right-radius: 0;
+    display: flex;
+    align-items: center;
+    min-width: 120px;
+    font-size: 16px;
+  }
+  :global(.ant-input) {
+    border: none;
+    flex: 1;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-size: 16px;
+  }
+  &__row {
+    padding: 10px;
+  }
+}
+
+:global {
+  .ant-modal {
+    .ant-modal-content {
+      padding: 0px !important;
+        .ant-modal-header {
+          width: 100%;
+          border-radius: 6px;
+          background-color: #3333;
+          padding: 20px 20px;
+        .ant-modal-title {
+          font-size: 22px !important;
+          font-weight: 400 !important;
+
+        }
+      }
+    }
+  }
+}

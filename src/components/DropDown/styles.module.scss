@@ -1,0 +1,57 @@
+.c-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__toggle {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: rgb(244, 244, 244);
+    opacity: 0.9;
+    cursor: pointer;
+  }
+  &__menu {
+    position: absolute;
+    border-radius: 5px;
+    top: 65%;
+    right: 0px;
+    background-color: #191919;
+    border: 1px solid #61677a;
+    list-style-type: none;
+    padding: 0px;
+    opacity: 0;
+    z-index: 10000;
+    width: 170px;
+    animation: fadeIn 0.5s ease forwards;
+    visibility: hidden;
+    transition: 300ms all;
+  }
+  &__menuItems {
+    cursor: pointer;
+    line-height: 35px;
+    padding: 0px 5px;
+    border-radius: 5px;
+    a {
+      color: white;
+    }
+    &:hover {
+      background-color: black;
+    }
+  }
+  &__menuItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+  }
+  input[type='checkbox'] {
+    display: none;
+  }
+  input[type='checkbox']:checked + &__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0.25rem);
+  }
+}

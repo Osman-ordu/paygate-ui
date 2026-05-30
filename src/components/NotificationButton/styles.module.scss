@@ -1,0 +1,22 @@
+.c-notificationbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+
+  &.green {
+    background-color: #2dd36f;
+  }
+  &.gray {
+    background-color: #9d9fa6;
+  }
+  &.red {
+    background-color: #eb445a;
+    color: black;
+  }
+}

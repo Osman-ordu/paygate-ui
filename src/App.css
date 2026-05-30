@@ -1,0 +1,119 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+.ant-upload-wrapper {
+  width: 100%;
+}
+.ant-modal-content {
+  padding: 20px 20px 10px 20px !important;
+}
+.ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline,
+.ant-menu-vertical {
+  background: #101010 !important;
+}
+.ant-dropdown-trigger {
+  color: white;
+}
+.ant-select-dropdown,
+.ant-dropdown {
+  border: 1px solid #61677a;
+  border-radius: 5px;
+}
+.ant-dropdown-menu-item-selected {
+  color: yellow !important;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item:hover {
+  background: black;
+  color: yellow;
+}
+.ant-select-dropdown .ant-select-item:hover {
+  background: black !important;
+  color: white;
+}
+.ant-menu-submenu-title {
+  color: yellow !important;
+  background: #373737c4;
+}
+.ant-app {
+  background: #101010;
+}
+.ant-menu-item-selected {
+  background-color: #ffffff0d !important;
+}
+.customize-row {
+  background-color: #bf3131 !important;
+  color: #fff !important;
+}
+
+.dx-datagrid-content .dx-datagrid-table .dx-row > td,
+.dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
+  vertical-align: 0 !important;
+}
+
+/* Menu İtem için  kapatıp açma ile alakalı olarak yeniden bakılıp style.module e çekilicek */
+.ant-menu-submenu-popup {
+  .ant-menu-title-content {
+    opacity: 1 !important;
+  }
+}
+
+.ant-menu-submenu-vertical {
+  .ant-menu-title-content {
+    opacity: 0 !important;
+  }
+}
+
+.ant-menu-inline-collapsed .ant-menu-item {
+  .ant-menu-title-content {
+    opacity: 0 !important;
+  }
+}
+
+.ant-select-suffix,
+.ant-select-clear {
+  color: white !important;
+}
+
+.rc-virtual-list-scrollbar.rc-virtual-list-scrollbar-vertical {
+  background-color: #333 !important;
+}
+.rc-virtual-list-scrollbar-thumb {
+  background-color: #ffffff28 !important;
+}
+
+.column-chooser-button {
+  color: white !important;
+  background-color: transparent !important;
+  display: block !important;
+  padding: 0px !important;
+  margin-left: 5px !important;
+  transition: all 0.3s ease !important;
+  border-radius: 5px !important;
+  opacity: 1 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #61677a !important;
+}
+.column-chooser-button .dx-button-content {
+  color: white !important;
+  background-color: #191919 !important;
+  border: none !important;
+}
+.column-chooser-button .dx-button {
+  border-style: none;
+}
+.column-chooser-button:hover {
+  color: yellow !important;
+  border: 1px solid yellow !important;
+  padding: 0px !important;
+}
+.dx-popup-wrapper .dx-state-focused.dx-overlay-content {
+  border: 1px solid yellow !important;
+}
+.dx-loadindicator-segment {
+  background-color: yellow !important;
+}
+.ant-modal {
+  transform-origin: top !important;
+}

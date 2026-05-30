@@ -1,0 +1,22 @@
+.c-edit-profile-form {
+width: 100%;
+display: flex;
+flex-direction: column;
+gap: 20px;
+    &__card{
+        width: 100%;
+        border-radius: 0px;
+        border: 1px solid #333;
+
+        table {
+            tbody {
+                tr {
+                    td {
+                        padding: 16px 10px !important;
+                        max-width: 30px !important;
+                    }
+                }
+            }
+        }
+    }
+}

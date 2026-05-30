@@ -1,0 +1,30 @@
+.c-card {
+  border-radius: 8px;
+  border: 1px solid #61677a;
+
+  &__body {
+    &.detail {
+      padding: 20px 20px 30px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 32px;
+      row-gap: 24px;
+    }
+    &.otp {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    &.treasury {
+      padding: 10px 0px 0;
+    }
+    &.paddingOn {
+      padding: 20px;
+    }
+  }
+
+  &.nonborder {
+    border: 0;
+  }
+}

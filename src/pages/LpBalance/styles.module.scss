@@ -1,0 +1,179 @@
+.c-lp-balance {
+  &__title {
+    font-size: 16px ;
+    font-weight: 600 ;
+  }
+  &__sub-title {
+    font-size: 14px ;
+    font-weight: 500 ;
+    color: #666 ;
+  }
+  &__group-summary {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    
+    span {
+      margin-right: 12px;
+      font-weight: 500;
+    }
+  }
+  &__total-title {
+    font-weight: 700 !important;
+    color: #fff !important;
+    letter-spacing: 0.5px !important;
+  }
+  &__totals {
+    font-size: 16px ;
+    font-weight: 600 ;
+    letter-spacing: 0.5px ;
+      color: #fff !important;
+    }
+  &__total-summary {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+  &__total-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  &__total-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 14px;
+  }
+  &__total-value {
+    font-weight: 700;
+    color: #f44336;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  &__export-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+  }
+  &__detail-grid {
+  :global(.dx-master-detail-cell) {
+    padding: 0px !important;
+  }
+  :global(.dx-datagrid-table) {
+    border: none !important;
+  }
+  :global(.dx-master-detail-row) {
+    > td {
+      padding-left: 30px !important;
+      background-color: transparent !important;
+    }
+    :global(.dx-datagrid-rowsview) {
+      border: none !important;
+    }
+  }
+  :global(.dx-master-detail-row-disabled) {
+    cursor: default !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+ }
+  :global(.dx-datagrid-rowsview .dx-data-row:first-child .dx-datagrid-group-closed) {
+     display: none !important;
+  }
+
+ :global {
+  .dx-datagrid-total-footer {
+      display: flex;
+      align-items: center;
+      padding: 0px !important;
+      height: 33.5px !important;
+      border-bottom: none !important;
+      tbody {
+          tr {
+              td {
+                  div{
+                      color: #F44336 !important;
+                      font-size: 16px !important;
+                      font-weight: 600 !important;
+                      letter-spacing: 1px !important;
+                  }
+              }
+          }
+      }
+  }
+}
+
+  // New styles for sub-account sections
+  .sub-accounts-container {
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 8px 0;
+  }
+
+  .sub-account-section {
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .sub-account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #f1f3f4;
+    border-bottom: 1px solid #e9ecef;
+
+    h4 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .sub-account-totals {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #6c757d;
+
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .detail-grid {
+    :global(.dx-datagrid-headers) {
+      background-color: #f8f9fa;
+    }
+    
+    :global(.dx-datagrid-table) {
+      border: none;
+    }
+    
+    :global(.dx-data-row) {
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.c-balance {
+
+    :global {
+        .dx-datagrid-total-footer {
+            display: flex;
+            align-items: center;
+            padding: 0px !important;
+            height: 33.5px !important;
+            tbody {
+                tr {
+                    td {
+                        div{
+                            font-weight: bold;
+                            color: #fff !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+  
+}
+
+

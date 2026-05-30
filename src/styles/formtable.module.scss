@@ -1,0 +1,41 @@
+.c-formtable {
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  &__button-item {
+    margin: 0px !important;
+    button {
+      float: right;
+    }
+  }
+  &__clearbutton {
+    background-color: #3dc2ff !important;
+    &:hover {
+      background-color: #83d8ff !important;
+      color: white !important;
+    }
+  }
+  &__buttons {
+    padding: 0 20px;
+  }
+  &__table {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px 0;
+    gap: 15px;
+    width: 100%;
+  }
+  :global(.ant-form-item) {
+    margin-bottom: 20px;
+  }
+  :global(.ant-switch) {
+    background-color: #871616 !important;
+  }
+  :global(.ant-switch-checked) {
+    background-color: #347b47 !important;
+  }
+}

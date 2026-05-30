@@ -1,0 +1,42 @@
+.c-pagetitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 0.8s steps(100, end) forwards;
+    position: relative;
+    
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    color: yellow;
+  }
+
+  &.data {
+    margin-bottom: 0px;
+  }
+  &.normal {
+    margin-bottom: 30px;
+  }
+}
+
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  80% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+

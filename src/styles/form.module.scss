@@ -1,0 +1,40 @@
+.c-antform {
+  :global(.ant-card) {
+    padding: 20px 20px 0px 20px !important;
+  }
+  :global(.ant-card-body) {
+    padding: 10px !important;
+  }
+  :global(.ant-picker) {
+    width: 100% !important;
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  &__button-item {
+    margin: 0px !important;
+    button {
+      float: right;
+    }
+  }
+  &__deletetext {
+    font-size: 20px;
+  }
+  &__form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__clearbutton {
+    background-color: #3dc2ff !important;
+    &:hover {
+      background-color: #83d8ff !important;
+      color: white !important;
+    }
+  }
+}

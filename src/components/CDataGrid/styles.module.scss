@@ -1,0 +1,51 @@
+.c-datagrid {
+  &__enabledButton {
+    &.off {
+      background-color: #871616 !important;
+    }
+    &.on {
+      background-color: #347b47 !important;
+    }
+  }
+  :global {
+    tr td a {
+      color: #ffffffed !important;
+      transition: all 0.3s ease;
+    }
+
+    tr td a:hover {
+      opacity: 0.8;
+    }
+    .select-button-a, .delete-button-a, .reset-button-a, .logs-button-a, .edit-logs-button-a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 400;
+      min-width: 50px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      cursor: pointer;
+      -webkit-box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+      color: #ffffffed;
+      background-color: #0d6efdcc;
+      transition: filter 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .dx-loadpanel-content {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

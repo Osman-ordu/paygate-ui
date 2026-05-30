@@ -1,0 +1,28 @@
+.status-unsuccess {
+  color: orange;
+  
+}
+.status-pending {
+  color: blue;
+}
+.status-rejected {
+  color: red;
+}
+.iban-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c-logs-modal {
+  > div:first-child {
+    margin-bottom: 10px;
+  }
+}
+
+:global {
+  .dx-link.logs-button-a {
+  background-color: #101010 !important;
+  color: #ffffffed !important;
+  }
+}

@@ -1,0 +1,16 @@
+.c-auto-transfer-balance {
+    margin-bottom: 20px;
+    > div:first-child {
+        margin: 0px;
+      }
+
+    &__status {
+      font-weight: bold !important;
+    }
+}
+
+.c-transaction-logs {
+    > div:first-child {
+        margin: 0px;
+      }
+}

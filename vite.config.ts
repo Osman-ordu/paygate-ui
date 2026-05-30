@@ -1,0 +1,18 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
+
+export default defineConfig({
+  server: { host: '0.0.0.0', port: 5173 },
+  preview: { host: '0.0.0.0', port: 5173 },
+  plugins: [react(), svgr()],
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  },
+  css: {
+    preprocessorOptions: {
+      scss: { silenceDeprecations: ['legacy-js-api'] },
+    },
+  },
+});

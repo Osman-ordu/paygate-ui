@@ -1,0 +1,37 @@
+.c-instancebutton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-uncertain {
+  color: blue;
+}
+.status-unsuccess {
+  color: orange;
+}
+.status-pending {
+  color: yellow;
+}
+.status-rejected {
+  color: red;
+}
+
+.displayNone {
+  display: none;
+}
+.displayBlock {
+  display: block;
+}
+.iban-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:global {
+  .dx-link.logs-button-a, .dx-link.edit-logs-button-a {
+  background-color: #000000ed !important;
+  color: #ffffffed !important;
+  }
+}

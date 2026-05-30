@@ -1,0 +1,19 @@
+.c-formitem {
+  &__input {
+    border: 1px solid #61677a;
+    width: 100%;
+    border-radius: 6px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+
+    p {
+      margin-left: 11px !important;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}

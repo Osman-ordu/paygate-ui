@@ -1,0 +1,23 @@
+.c-sidemenu {
+    background: #101010 !important;
+    &__open {
+      padding-left: 24px !important;
+      background-color: #111111;
+    }
+    &__close {
+      padding-left: 16px;
+      background-color: #111111;
+    }
+    :global(.ant-menu-item-selected) {
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      svg {
+        color: yellow;
+        scale: 1.50;
+        transition: all 0.3s ease;
+      } 
+    }
+  }
+  
+  
+  

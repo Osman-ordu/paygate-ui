@@ -1,0 +1,6 @@
+.c-datagrid {
+  display: block;
+  :global(.dx-datagrid-header-panel) {
+    display: none !important;
+  }
+}

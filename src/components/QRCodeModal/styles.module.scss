@@ -1,0 +1,23 @@
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+
+  .qr-code-image {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .qr-code-instructions {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: start;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0px;
+  }
+}

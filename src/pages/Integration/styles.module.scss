@@ -1,0 +1,11 @@
+.c-integration{
+    &__tabContainer {
+        display: inline-flex;
+        margin: 20px 0 10px 0;
+        background-color: #171717;
+        padding: 0px;
+        position: absolute;
+        margin-top: 5px;
+        z-index: 1;
+      }
+    }

@@ -1,0 +1,17 @@
+.c-lp-accounts {
+    &__success {
+        color: #4CAF50;
+      }
+      &__danger {
+        color: #F44336;
+      }
+
+      &__danger,
+      &__success {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    
+      }
+}
+

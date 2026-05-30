@@ -1,0 +1,56 @@
+.c-text-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0px;
+  border-radius: 6px;
+  font-size: 14px;
+
+  span {
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 2px;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  &.info {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    
+    svg {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &.warning {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    
+    svg {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &.success {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    
+    svg {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &.error {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    
+    svg {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}

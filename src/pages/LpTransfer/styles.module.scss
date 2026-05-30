@@ -1,0 +1,74 @@
+.c-lp-transfer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  &__add-transfer__form {
+    margin-top: 10px;
+    :global {
+      .ant-card {
+        border-radius: 0px;
+        border: 1px solid #333;
+      }
+      .ant-form-item {
+        margin-bottom: 0;
+        min-height: 80px;
+      }
+      .ant-form-item-explain {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        width: 100%;
+      }
+    }
+  }
+  &__quick-transfer,
+  &__balances {
+    :global {
+      .dx-toolbar .dx-toolbar-items-container {
+        height: 0px;
+      }
+    }
+  }
+  &__quick-transfer {
+    :global {
+      .dx-link.delete-button-a {
+        background-color: #f44336 !important;
+        color: #ffffffed !important;
+      }
+    }
+  }
+  &__button-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  &__readonly-text {
+    opacity: 0.8;
+    display: inline-block;
+    font-size: 9px;
+    background-color: transparent;
+    font-weight: bold;
+    color: #6b7280;
+    margin-left: 5px;
+  }
+  &__sender-text {
+    color: #10b981;
+  }
+  &__recipient-text {
+    color: #3b82f6;
+  }
+  &__max-balance {
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    color: #5c8cca;
+  }
+}
+:global {
+#lpTransfer_transferAmount_extra {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
