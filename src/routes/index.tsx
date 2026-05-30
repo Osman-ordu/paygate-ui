@@ -19,6 +19,7 @@ const Integration = lazy(() => import('../pages/Integration/integration'));
 const ChangePassword = lazy(() => import('../pages/ChangePassword/index'));
 const ProfileManager = lazy(() => import('../pages/ProfileManager'));
 const UserManager = lazy(() => import('../pages/UserManager'));
+const UserApprovals = lazy(() => import('../pages/UserApprovals'));
 const AutoTransfer = lazy(() => import('../pages/AutoTransferBalance'));
 const LpAccounts = lazy(() => import('../pages/LpAccounts'));
 const LpTransfer = lazy(() => import('../pages/LpTransfer/index'));
@@ -63,6 +64,7 @@ export default function AppRoutes() {
         <Route path='/integrations' element={hasPermission('Integration') ? <AsyncRoute component={Integration} /> : <Navigate to='/deposit' />} />
         <Route path='/profile-manager' element={hasPermission('ProfileManager') ? <AsyncRoute component={ProfileManager} /> : <Navigate to='/deposit' />} />
         <Route path='/user-manager' element={hasPermission('UserManager') ? <AsyncRoute component={UserManager} /> : <Navigate to='/deposit' />} />
+        <Route path='/user-approvals' element={hasPermission('UserApprovals') ? <AsyncRoute component={UserApprovals} /> : <Navigate to='/deposit' />} />
         <Route path='/lp-transfer' element={hasPermission('LPTransfer') ? <AsyncRoute component={LpTransfer} /> : <Navigate to='/deposit' />} />
         <Route path='/lp-transferlist' element={hasPermission('LPTransferList') ? <AsyncRoute component={LpTransferList} /> : <Navigate to='/deposit' />} />
         <Route path='/lp-balances' element={hasPermission('LPBalances') ? <AsyncRoute component={LpBalance} /> : <Navigate to='/deposit' />} />

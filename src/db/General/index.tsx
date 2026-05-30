@@ -198,6 +198,14 @@ export const menuData: any = [
       },
       {
         key: generateMenuKey(),
+        icon: <UserManagement />,
+        title: 'user_approvals',
+        titleV: 'UserApprovals',
+        link: '/user-approvals',
+        badge: true,
+      },
+      {
+        key: generateMenuKey(),
         icon: <PiBank />,
         title: 'integrations',
         titleV: 'Integration',

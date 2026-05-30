@@ -19,5 +19,5 @@ export const EditUserValidationSchema = Yup.object().shape({
   surname: Yup.string().required(requiredMessage('Surname')),
   email: Yup.string().required(requiredMessage('Email')).email('Invalid email address'),
   phoneNumber: Yup.string().required(requiredMessage('Phone')).min(11, 'Phone number must be 11 digits').max(11, 'Phone number must be 11 digits'),
-  roleId: Yup.number().required(requiredMessage('Profile')),
+  roleId: Yup.string().required(requiredMessage('Profile')),
 });
