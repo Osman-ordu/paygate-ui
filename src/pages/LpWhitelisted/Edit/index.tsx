@@ -8,6 +8,7 @@ import { postLPTransactionCurrencies, postLPTransactionNetworks } from '../../..
 import { editLpWhitelist, getLpOkxVaspList, getLpWhitelist } from '../../../store/lpWhitelist';
 import CErrorMessage from '../../../components/CErrorMessage';
 import ButtonArea from '../../../components/ButtonArea';
+import CCard from '../../../components/CCard';
 import { channelEnum, countryEnum, entityEnum, senderLpEnum, targetTypeEnum } from '../../../db/Enums';
 import { editInitialValues, validationSchema } from '../Validation';
 
