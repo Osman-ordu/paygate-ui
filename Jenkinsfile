@@ -69,7 +69,7 @@ pipeline {
                     echo "Building branch ${params.BRANCH} @ ${env.GIT_SHA}"
                     sh """
                         cd ${REPO_DIR}
-                        VITE_API_BASE_URL=https://ceptecash.com/api npm run build
+                        VITE_API_BASE_URL=https://ceptecash.com npm run build
                         mkdir -p ${RELEASES_DIR}/${env.GIT_SHA}
                         cp -r dist/. ${RELEASES_DIR}/${env.GIT_SHA}/
                     """
