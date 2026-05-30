@@ -46,7 +46,7 @@ pipeline {
                     cd ${REPO_DIR}
                     git fetch origin
                     git checkout ${params.BRANCH}
-                    git pull origin ${params.BRANCH}
+                    git reset --hard origin/${params.BRANCH}
                 """
             }
         }
