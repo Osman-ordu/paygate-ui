@@ -43,12 +43,17 @@ export default function MenuItem({ collapsed }: any) {
               {item.submenu?.map((subItem: any) => (
                 <Menu.Item
                   className={`
-                    ${subItem.link === pathname ? 'ant-menu-item-selected' : ''} 
+                    ${subItem.link === pathname ? 'ant-menu-item-selected' : ''}
                     ${!collapsed ? styles.sider_menu_item_collapse_open : styles.sider_menu_item_collapse_close}
                   `}
                   icon={subItem.icon}
                   key={subItem.key}>
-                  <Link to={subItem.link}>{t(subItem.title)}</Link>
+                  <Link to={subItem.link}>
+                    {t(subItem.title)}
+                    {subItem.badge && pendingCount > 0 && (
+                      <Badge count={pendingCount} size='small' style={{ marginLeft: 8 }} />
+                    )}
+                  </Link>
                 </Menu.Item>
               ))}
             </Menu.SubMenu>
