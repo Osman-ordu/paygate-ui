@@ -10,7 +10,6 @@ import { getLPTransferList } from '../../store/LPTransferlist';
 import { transferTimeEnum } from '../../db/Enums';
 import { lpTransferListColumns } from '../../db/Columns';
 import { LpTransferListValidationSchema, LpTransferListInitialValue } from './Validation';
-import { exportToExcel } from '../../utils/excel-export';
 import PageTitle from '../../components/PageTitle';
 import CDataGrid from '../../components/CDataGrid';
 import Loader from '../../components/Loader';
@@ -40,6 +39,7 @@ export default function LpTransferList({ onFormReset, shouldResetForm }: any) {
   const handleExportExcel = async () => {
     try {
       const filteredData = dataSource.items();
+      const { exportToExcel } = await import('../../utils/excel-export');
       exportToExcel('lpTransferList', filteredData, 'lpTransferList.xlsx', t);
     } catch (error) {
       message.error(t('exportError'));

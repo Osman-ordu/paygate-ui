@@ -7,7 +7,6 @@ import DataSource from 'devextreme/data/data_source';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getEodBalanceList } from '../../store/eodBalance';
-import { exportToExcel } from '../../utils/excel-export';
 import { eodBalanceSummaryColumns } from '../../db/Columns';
 import CDataGrid from '../../components/CDataGrid';
 import Button from '../../components/Button';
@@ -55,6 +54,7 @@ export default function EodBalance({ onFormReset, shouldResetForm }: any) {
   const handleExportExcel = async () => {
     try {
       const filteredData = dataSource.items();
+      const { exportToExcel } = await import('../../utils/excel-export');
       exportToExcel('eodBalance', filteredData, 'eodBalance.xlsx', t);
     } catch (error) {
       toastError(t('exportError'));

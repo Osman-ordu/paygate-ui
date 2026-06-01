@@ -2,7 +2,6 @@ import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CustomStore from 'devextreme/data/custom_store';
 import { CallApi } from '../../utils/services';
-import { exportToExcel } from '../../utils/excel-export';
 import { renderCellAmount, renderCellIban } from '../../utils/renderCell';
 import { transformFilter, transformSort } from '../../utils/general';
 import { getTransactionStatusConfig } from '../../db/Configs';
@@ -72,6 +71,7 @@ export default function Withdrawal() {
       url: `/api/Withdrawal`,
       method: 'GET',
     });
+    const { exportToExcel } = await import('../../utils/excel-export');
     exportToExcel('withdrawal', data, 'withdrawal.xlsx', t);
   };
 

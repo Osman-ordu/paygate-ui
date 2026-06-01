@@ -7,7 +7,6 @@ import ArrayStore from 'devextreme/data/array_store';
 import DataSource from 'devextreme/data/data_source';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getTransferList } from '../../store/transferList';
-import { exportToExcel } from '../../utils/excel-export';
 import { formatterAmount } from '../../utils/general';
 import { stTransferStatusEnum, transferTimeEnum, ttTransferStatusEnum } from '../../db/Enums';
 import { transferListColumns } from '../../db/Columns';
@@ -103,6 +102,7 @@ export default function TransferList({ onFormReset, shouldResetForm }: any) {
   const handleExportExcel = async () => {
     try {
       const filteredData = dataSource.items();
+      const { exportToExcel } = await import('../../utils/excel-export');
       exportToExcel('transferList', filteredData, 'transferList.xlsx', t);
     } catch (error) {
       message.error(t('exportError'));

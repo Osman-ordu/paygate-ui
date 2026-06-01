@@ -7,7 +7,6 @@ import { Formik, FormikProps } from 'formik';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getEftRefundList } from '../../store/eftRefundList';
-import { exportToExcel } from '../../utils/excel-export';
 import { transferTimeEnum } from '../../db/Enums';
 import { refundsColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
@@ -37,7 +36,8 @@ const Refunds = ({ onFormReset, shouldResetForm }: any) => {
     })
   );
 
-  const handleExportExcel = () => {
+  const handleExportExcel = async () => {
+    const { exportToExcel } = await import('../../utils/excel-export');
     exportToExcel('refunds', dataSource.items(), 'refunds.xlsx', t);
   };
 

@@ -6,7 +6,6 @@ import { putRefund } from '../../store/refund';
 import { postReject } from '../../store/reject';
 import { confirmMoneyTransfer } from '../../store/transferMoney';
 import { changeMasakStatement } from '../../store/masak';
-// import { exportToExcel } from '../../utils/excel-export';
 import { CallApi } from '../../utils/services';
 import { renderCellAmount, renderCellIban } from '../../utils/renderCell';
 import { getEncryptModuleData, sortDataByDateDeposit, transformFilter, transformSort } from '../../utils/general';
@@ -211,7 +210,6 @@ export default function Deposit() {
     });
     const sortedDepositData = sortDataByDateDeposit(data);
     const { exportToExcel } = await import('../../utils/excel-export');
-
     exportToExcel('deposit', sortedDepositData, 'deposit.xlsx', t);
   };
 

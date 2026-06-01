@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getLPAccounts, getLpAccountsWallets } from '../../store/LPAccounts';
-import { exportToExcel } from '../../utils/excel-export';
 import { lpAccountsColumns } from '../../db/Columns';
 import { senderLpEnum } from '../../db/Enums';
 import PageTitle from '../../components/PageTitle';
@@ -22,7 +21,8 @@ export default function LpAccounts() {
   const [lpName, setLpName] = useState('');
   const [lpCurrency, setLpCurrency] = useState('');
 
-  const handleExportExcel = () => {
+  const handleExportExcel = async () => {
+    const { exportToExcel } = await import('../../utils/excel-export');
     exportToExcel('lpAccounts', lpAccounts, 'lpAccounts.xlsx', t);
   };
 

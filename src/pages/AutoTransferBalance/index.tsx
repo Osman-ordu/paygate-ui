@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeStatusAutoTransferBalance, getAutoTransferBalance, getTransactionLogs } from '../../store/autoTransferBalance';
-import { exportToExcel } from '../../utils/excel-export';
 import { autoTransferBalanceColumns, transactionLogsColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
 import CDataGrid from '../../components/CDataGrid';
@@ -53,7 +52,8 @@ export default function AutoTransferBalance() {
     setIsDeleteModalVisible(false);
   };
 
-  const handleExcelExport = () => {
+  const handleExcelExport = async () => {
+    const { exportToExcel } = await import('../../utils/excel-export');
     exportToExcel('AutoTransfer', transactionLogs, 'transactionLogs.xlsx', t);
   };
 
