@@ -8,7 +8,6 @@ import AuthRoute from '../components/AuthRoute';
 const Login = lazy(() => import('../pages/Auth/Login'));
 const TreasuryTransfer = lazy(() => import('../pages/TreasuryTransfer'));
 const TransferList = lazy(() => import('../pages/TransferList'));
-const Deposit = lazy(() => import('../pages/Deposit'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const Balance = lazy(() => import('../pages/Balance'));
 const Consensus = lazy(() => import('../pages/Consensus'));
@@ -29,6 +28,7 @@ const LpBalance = lazy(() => import('../pages/LpBalance/index'));
 const Refunds = lazy(() => import('../pages/Refunds/index'));
 const PaymentServicesManagement = lazy(() => import('../pages/PaymentServicesManagement/index'));
 const EodBalance = lazy(() => import('../pages/EodBalance/index'));
+import Deposit from '../pages/Deposit';
 
 const AsyncRoute: any = ({ component: Component }: { component: React.LazyExoticComponent<() => JSX.Element> }) => (
   <ErrorBoundary>
