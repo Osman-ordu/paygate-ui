@@ -11,7 +11,7 @@ import { getEftRefundList } from '../../store/eftRefundList';
 import { transferTimeEnum } from '../../db/Enums';
 import { refundsColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import { RefundsInitialValue, RefundsValidationSchema } from './Validation';

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getUserData } from '../../store/user';
 import { userColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Loader from '../../components/Loader';
 import PiUser from '../../assets/svg/PiUser.svg?react';
 

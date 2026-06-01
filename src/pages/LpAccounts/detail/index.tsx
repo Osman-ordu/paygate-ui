@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../../store/hooks';
 import { lpAccountsWalletsColumns } from '../../../db/Columns';
 import Loader from '../../../components/Loader';
-import CDataGrid from '../../../components/CDataGrid';
+import CDataGrid from '../../../components/CDataGrid/Lazy';
 import PageTitle from '../../../components/PageTitle';
 import ILpAccounts from '../../../assets/svg/LpAccounts.svg?react';
 export default function DetailForm({ lpName, lpCurrency }: { lpName: string; lpCurrency: string }) {

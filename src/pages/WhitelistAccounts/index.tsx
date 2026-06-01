@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeStatusWhiteListAccounts, getWhiteListAccounts } from '../../store/whitelistAccounts';
 import { whitelistAccountColumns } from '../../db/Columns';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import PageTitle from '../../components/PageTitle';
 import AddForm from './Add';

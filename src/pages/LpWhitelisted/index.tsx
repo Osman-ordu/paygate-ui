@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { lpWhitelistedColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
 import Loader from '../../components/Loader';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import AddForm from './Add';
 import EditForm from './Edit';

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getBankData } from '../../store/bank';
 import { bankColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Loader from '../../components/Loader';
 import PiBank from '../../assets/svg/PiBank.svg?react';
 

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getPaymentServiceManagement } from '../../store/paymentServiceManagement';
 import { customTitleText } from '../../utils/general';
 import { serviceManagementColumns } from '../../db/Columns';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import PageTitle from '../../components/PageTitle';
 import CustomModal from '../../components/Modal';
 import Loader from '../../components/Loader';

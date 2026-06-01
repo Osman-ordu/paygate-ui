@@ -12,7 +12,7 @@ import { lpBalancesColumns, lpQuickTransferColumns } from '../../db/Columns';
 import { entityTypeEnum, senderLpEnum } from '../../db/Enums';
 import { AddGeneralFormProps } from '../../dbProps';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import CSpace from '../../components/CSpace';
 import CCard from '../../components/CCard';

@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getEodBalanceList } from '../../store/eodBalance';
 import { eodBalanceSummaryColumns } from '../../db/Columns';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import PageTitle from '../../components/PageTitle';
 import { toastError } from '../../components/Toast';

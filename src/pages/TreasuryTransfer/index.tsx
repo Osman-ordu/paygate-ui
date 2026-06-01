@@ -12,7 +12,7 @@ import { quickTransferColumns, treasuryTransferColumns } from '../../db/Columns'
 import { transferTypeEnum } from '../../db/Enums';
 import { AddGeneralFormProps } from '../../dbProps';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import CustomModal from '../../components/Modal';
 import CSpace from '../../components/CSpace';

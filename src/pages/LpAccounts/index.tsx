@@ -5,7 +5,7 @@ import { getLPAccounts, getLpAccountsWallets } from '../../store/LPAccounts';
 import { lpAccountsColumns } from '../../db/Columns';
 import { senderLpEnum } from '../../db/Enums';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import Loader from '../../components/Loader';
 import DetailForm from './detail';

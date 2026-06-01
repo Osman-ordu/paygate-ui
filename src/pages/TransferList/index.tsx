@@ -12,7 +12,7 @@ import { formatterAmount } from '../../utils/general';
 import { stTransferStatusEnum, transferTimeEnum, ttTransferStatusEnum } from '../../db/Enums';
 import { transferListColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import CustomModal from '../../components/Modal';

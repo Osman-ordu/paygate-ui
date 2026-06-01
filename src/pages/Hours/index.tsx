@@ -5,7 +5,7 @@ import { getBankData } from '../../store/bank';
 import { bankColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
 import Loader from '../../components/Loader';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import PiClockUser from '../../assets/svg/PiClockUser.svg?react';
 
 const Hours = () => {

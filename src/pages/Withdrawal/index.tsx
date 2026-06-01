@@ -9,7 +9,7 @@ import { WithdrawalGridCellData } from '../../dbProps';
 import { withdrawalColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
 import LogsModal from './LogsModal';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import PiHandWithdraw from '../../assets/svg/PiHandWitdraw.svg?react';
 import styles from './styles.module.scss';

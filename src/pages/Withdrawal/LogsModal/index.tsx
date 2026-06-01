@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import Loader from '../../../components/Loader';
-import CDataGrid from '../../../components/CDataGrid';
+import CDataGrid from '../../../components/CDataGrid/Lazy';
 import PageTitle from '../../../components/PageTitle';
 import { logDetailsColumns } from '../../../db/Columns';
 import styles from '../styles.module.scss';

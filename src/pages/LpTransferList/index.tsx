@@ -12,7 +12,7 @@ import { transferTimeEnum } from '../../db/Enums';
 import { lpTransferListColumns } from '../../db/Columns';
 import { LpTransferListValidationSchema, LpTransferListInitialValue } from './Validation';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import ILpTransferlist from '../../assets/svg/LpTransferlist.svg?react';

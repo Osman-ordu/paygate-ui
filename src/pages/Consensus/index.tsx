@@ -9,7 +9,7 @@ import { getBankAccountConsensus } from '../../store/bankAccountConsensus';
 import { ConsensusInitialValue, ConsensusValidationSchema } from './Validation';
 import { ConsensusFormProps, ConsensusProps } from '../../dbProps';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
 import CErrorMessage from '../../components/CErrorMessage';

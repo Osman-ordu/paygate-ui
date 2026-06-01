@@ -5,7 +5,7 @@ import { getIntegration } from '../../store/integration';
 import { banksColumns, exchangeColumns, lpsColumns } from '../../db/Columns';
 import { IntegrationTypeEnum } from '../../db/Enums';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import TabButton from '../../components/TabButton';
 import Loader from '../../components/Loader';

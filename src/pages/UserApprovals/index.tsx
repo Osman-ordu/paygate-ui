@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import { toast } from 'react-toastify';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import styles from './styles.module.scss';
 import { useAppDispatch } from '../../store/hooks';
 import { getAllUsers, approveUser, rejectUser, resendApproval, setUserStatus } from '../../store/pendingUsers';

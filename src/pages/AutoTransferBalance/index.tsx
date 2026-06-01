@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeStatusAutoTransferBalance, getAutoTransferBalance, getTransactionLogs } from '../../store/autoTransferBalance';
 import { autoTransferBalanceColumns, transactionLogsColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import DeleteForm from './Delete';
 import AddForm from './Add';

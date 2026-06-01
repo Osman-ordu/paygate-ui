@@ -13,7 +13,7 @@ import { getTransactionStatusConfig } from '../../db/Configs';
 import { refundCellEnum, ActionType } from '../../db/Enums';
 import { depositColumns } from '../../db/Columns';
 import { DepositGridCellData, IActionState } from '../../dbProps';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import PageTitle from '../../components/PageTitle';
 import CustomModal from '../../components/Modal';
 import Button from '../../components/Button';

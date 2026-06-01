@@ -5,7 +5,7 @@ import { getUserData } from '../../store/user';
 import { putChangeStatus } from '../../store/userManager';
 import { userManagerColumns } from '../../db/Columns';
 import { putResetGoogleAuth } from '../../store/auth';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import CustomModal from '../../components/Modal';
 import QRCodeModal from '../../components/QRCodeModal';
 import PageTitle from '../../components/PageTitle';

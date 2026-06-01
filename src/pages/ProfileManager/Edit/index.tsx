@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik, FormikProps } from 'formik';
 import { Col, Form, Input, Row } from 'antd';
-import CDataGrid from '../../../components/CDataGrid';
+import CDataGrid from '../../../components/CDataGrid/Lazy';
 import { getPermissionModules, getPermissionProfile, getProfileList, putPermission } from '../../../store/permissions';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import CErrorMessage from '../../../components/CErrorMessage';

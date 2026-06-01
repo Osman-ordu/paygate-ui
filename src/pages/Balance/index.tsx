@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getBankAccountDetail } from '../../store/bankAccountDetail';
 import { balanceColumns } from '../../db/Columns';
 import PageTitle from '../../components/PageTitle';
-import CDataGrid from '../../components/CDataGrid';
+import CDataGrid from '../../components/CDataGrid/Lazy';
 import Loader from '../../components/Loader';
 import PiWallet from '../../assets/svg/PiWallet.svg?react';
 import styles from './styles.module.scss';
