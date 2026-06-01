@@ -1,7 +1,3 @@
-import { exportDataGrid } from 'devextreme/excel_exporter';
-import { Workbook } from 'exceljs';
-import saveAs from 'file-saver';
-
 function getTransactionStatusText(status: number, t: (key: string) => string) {
   switch (status) {
     case 0:
@@ -45,42 +41,10 @@ function formatTimestamp(value: any): string {
   }
 }
 
-export function datagridExcelExport(datagridComponent: any, fileName: string, pageType: string) {
-  const workbook = new Workbook();
-  const worksheet = workbook.addWorksheet('Data Grid');
+export async function exportToExcel(pageType: string, data: any[], fileName: string, t: (key: string) => string) {
+  const { Workbook } = await import('exceljs');
+  const { saveAs } = await import('file-saver');
 
-  exportDataGrid({
-    component: datagridComponent.current.instance,
-    worksheet,
-    autoFilterEnabled: true,
-    keepColumnWidths: true,
-    customizeCell: (options: any) => {
-      const { excelCell, gridCell } = options;
-      excelCell.font = { name: 'Arial', size: 12 };
-      excelCell.alignment = { horizontal: 'left' };
-      if (pageType === 'deposit' && (gridCell.column?.dataField === 'refund' || gridCell.column?.dataField === '')) {
-        excelCell.value = null;
-        return;
-      }
-
-      if (gridCell.rowType === 'header') {
-        excelCell.font = { name: 'Arial', size: 12, bold: true };
-        worksheet.getColumn(excelCell.col).width = 25;
-      }
-      if (excelCell && typeof excelCell.value === 'string') {
-        const cleanValue = excelCell.value.replace(/<[^>]+>/g, '');
-        excelCell.value = cleanValue;
-      }
-    },
-  }).then(() => {
-    workbook.xlsx.writeBuffer().then((buffer) => {
-      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      saveAs(blob, fileName);
-    });
-  });
-}
-
-export function exportToExcel(pageType: string, data: any[], fileName: string, t: (key: string) => string) {
   const workbook = new Workbook();
   const worksheet = workbook.addWorksheet('Data');
 
@@ -185,7 +149,10 @@ export function exportToExcel(pageType: string, data: any[], fileName: string, t
   });
 }
 
-export function exportTreeListToExcel(treeListComponent: any, fileName: string) {
+export async function exportTreeListToExcel(treeListComponent: any, fileName: string) {
+  const { Workbook } = await import('exceljs');
+  const { saveAs } = await import('file-saver');
+
   const workbook = new Workbook();
   const worksheet = workbook.addWorksheet('LP Balance Data');
 

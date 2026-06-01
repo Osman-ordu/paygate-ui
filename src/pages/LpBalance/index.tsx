@@ -3,7 +3,6 @@ import TreeList, { Column } from 'devextreme-react/tree-list';
 import { useTranslation } from 'react-i18next';
 import { getLpBalanceList } from '../../store/LPBalance';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { exportTreeListToExcel } from '../../utils/excel-export';
 import PageTitle from '../../components/PageTitle';
 import ButtonIcon from '../../components/ButtonIcon';
 import ExcelExportIcon from '../../assets/svg/ExcelExportIcon.svg?react';
@@ -133,8 +132,9 @@ const LpBalance = () => {
     [t]
   );
 
-  const handleExportExcel = () => {
+  const handleExportExcel = async () => {
     if (treeListRef.current) {
+      const { exportTreeListToExcel } = await import('../../utils/excel-export');
       exportTreeListToExcel(treeListRef, 'lp-balance.xlsx');
     }
   };
