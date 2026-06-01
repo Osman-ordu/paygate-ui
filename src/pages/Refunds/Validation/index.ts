@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { RefundsProps } from '../../../dbProps';
-import { YupV } from '../../../utils/general';
+import * as Yup from 'yup';
 
 export const RefundsInitialValue = (): RefundsProps => {
   const startDate = dayjs().startOf('day').toISOString();
@@ -11,7 +11,7 @@ export const RefundsInitialValue = (): RefundsProps => {
   };
 };
 
-export const RefundsValidationSchema = YupV.object().shape({
-  endDate: YupV.string().required('End Date'),
-  startDate: YupV.string().required('Start Date'),
+export const RefundsValidationSchema = Yup.object().shape({
+  endDate: Yup.string().required('End Date'),
+  startDate: Yup.string().required('Start Date'),
 });

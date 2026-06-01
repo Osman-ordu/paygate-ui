@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
-import { Col, Form, Row, Select, DatePicker, message } from 'antd';
+import { Col, Form, Row, Select, DatePicker } from 'antd';
+import { toast } from 'react-toastify';
 import { Formik, FormikProps } from 'formik';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -42,14 +43,14 @@ const Consensus: React.FC<ConsensusFormProps> = ({ onFormReset, shouldResetForm 
     const end = dayjs(endDate);
 
     if (start.isAfter(end)) {
-      message.error(t('isAfterStartMessage'));
+      toast.error(t('isAfterStartMessage'));
       return;
     }
 
     const difference = end.diff(start, 'day');
 
     if (difference > 7) {
-      message.error(t('diffMessage'));
+      toast.error(t('diffMessage'));
       return;
     }
 

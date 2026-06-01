@@ -1,15 +1,15 @@
 import { useRef, useEffect } from 'react';
-import { Input, Row, Col, Form, Table } from 'antd';
+import { Input, Row, Col, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Formik } from 'formik';
 import { useAppDispatch } from '../../../store/hooks';
 import { getPaymentServiceManagement, putPaymentServiceManagement } from '../../../store/paymentServiceManagement';
 import { getPaymentServiceManagementEditTableData } from '../../../utils/general';
-import { getPaymentServiceManagementEditColumns } from '../../../db/Columns';
 import { EditWorkFrequencyModalProps, getInitialValues, getValidationSchema } from '../Validation';
 import CCard from '../../../components/CCard';
 import ButtonArea from '../../../components/ButtonArea';
 import CErrorMessage from '../../../components/CErrorMessage';
+import styles from './styles.module.scss';
 
 export default function EditWorkFrequencyModal({ onClose, onFormReset, shouldResetForm, selectedRowData }: EditWorkFrequencyModalProps) {
   const { t } = useTranslation();
@@ -18,7 +18,6 @@ export default function EditWorkFrequencyModal({ onClose, onFormReset, shouldRes
   const validationSchema = getValidationSchema(t);
   const initialValues = getInitialValues(selectedRowData);
   const editTableData = getPaymentServiceManagementEditTableData(selectedRowData, t);
-  const editColumns = getPaymentServiceManagementEditColumns(t);
 
   const handleSubmit = async (values: any) => {
     if (!values.workFrequency) {
@@ -68,7 +67,16 @@ export default function EditWorkFrequencyModal({ onClose, onFormReset, shouldRes
                 </Form.Item>
               </Col>
             </Row>
-            <Table dataSource={editTableData} columns={editColumns} pagination={false} size='small' bordered showHeader={false} rowHoverable={false} />
+            <table className={styles['detail-table']}>
+              <tbody>
+                {editTableData.map((row) => (
+                  <tr key={row.key}>
+                    <td className={styles['detail-table__label']}>{row.label}</td>
+                    <td className={styles['detail-table__value']}>{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
             <ButtonArea cancelClick={onClose} submitTitle={t('save')} submitClick={handleSubmit} />
           </Form>
         )}

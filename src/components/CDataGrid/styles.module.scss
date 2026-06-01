@@ -1,10 +1,37 @@
 .c-datagrid {
   &__enabledButton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 44px;
+    height: 22px;
+    border-radius: 11px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s ease;
+    }
+
     &.off {
-      background-color: #871616 !important;
+      background-color: #871616;
     }
     &.on {
-      background-color: #347b47 !important;
+      background-color: #347b47;
+      &::after {
+        transform: translateX(22px);
+      }
     }
   }
   :global {

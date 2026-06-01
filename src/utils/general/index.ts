@@ -1,9 +1,7 @@
-import * as Yup from 'yup';
 import dayjs from 'dayjs';
 import { SortableData } from '../../dbProps';
 import { allowedEndpoints, encryptionKey } from '../../db';
 import { allTBanksEnum } from '../../db/Enums';
-export const YupV = Yup;
 
 export const apiEnvUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -24,13 +22,6 @@ export const formatterAmount = (amount: number) => {
   return amount?.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
-export function checkMultipleOf(this: Yup.NumberSchema, multipleOf: number, fieldName: string) {
-  return this.test('checkMultipleOf', `${fieldName} must be a whole number`, (value) => {
-    if (value === undefined || value === 0.0 || value === null) return true;
-    return Number.isInteger(value / multipleOf);
-  });
-}
-
 export const bankFind = (iban: string) => {
   const bankaKodu = iban.substring(4, 7);
   return allTBanksEnum[bankaKodu] ?? '';
@@ -40,13 +31,6 @@ export const extractBankCodeFromIban = (iban: string): string => {
   if (!iban) return '';
   return iban.replace('TR', '').substring(4, 7);
 };
-
-declare module 'yup' {
-  interface NumberSchema {
-    checkMultipleOf(multipleOf: number, fieldName: string): NumberSchema;
-  }
-}
-Yup.addMethod(Yup.number, 'checkMultipleOf', checkMultipleOf);
 
 export const isAllowedRequest = (method: any, url: any): boolean => {
   if (method === 'GET') return true;

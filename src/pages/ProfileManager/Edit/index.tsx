@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik, FormikProps } from 'formik';
-import { Col, Form, Input, Row, Table, Checkbox } from 'antd';
-import type { TableColumnsType } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { Col, Form, Input, Row } from 'antd';
+import CDataGrid from '../../../components/CDataGrid';
 import { getPermissionModules, getPermissionProfile, getProfileList, putPermission } from '../../../store/permissions';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import CErrorMessage from '../../../components/CErrorMessage';
 import ButtonArea from '../../../components/ButtonArea';
 import CCard from '../../../components/CCard';
-import { viewPageSizes } from '../../../db';
 import { EditGeneralFormProps, EditRoleDataType } from '../../../dbProps';
 import { EditProfileProps } from './props';
 import { editProfileInitialValues, editProfileValidationSchema } from '../Validation/EditProfileValidation';
@@ -24,21 +22,20 @@ const EditProfileForm: React.FC<EditGeneralFormProps> = ({ onClose, onFormReset,
   const [, setUserInfo] = useState<any[]>([]);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<Record<string, boolean>>({});
   const [data, setData] = useState<EditRoleDataType[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleCheckboxChange = (e: CheckboxChangeEvent, record: EditRoleDataType, columnName: string) => {
+  const handleCheckboxChange = (checked: boolean, record: EditRoleDataType, columnName: string) => {
     setData((prevData) => {
       const updatedData = prevData?.map((item) =>
         item.key === record.key
           ? {
               ...item,
-              [columnName]: e.target.checked,
+              [columnName]: checked,
             }
           : item
       );
       const updatedCheckboxes = {
         ...selectedCheckboxes,
-        [`${record.key}-${columnName}`]: e.target.checked,
+        [`${record.key}-${columnName}`]: checked,
       };
       setSelectedCheckboxes(updatedCheckboxes);
 
@@ -149,41 +146,29 @@ const EditProfileForm: React.FC<EditGeneralFormProps> = ({ onClose, onFormReset,
     };
   };
 
-  const columns: TableColumnsType<EditRoleDataType> = [
-    {
-      title: t('module_name'),
-      dataIndex: 'moduleName',
-    },
-    {
-      title: t('view'),
-      dataIndex: 'view',
-      align: 'center',
-      render: (_, record) => (
-        <Checkbox
-          checked={selectedCheckboxes[`${record.key}-view`]}
-          onChange={(e) => handleCheckboxChange(e, record, 'view')}
-          disabled={selectedCheckboxes[`${record.key}-create`] || selectedCheckboxes[`${record.key}-edit`] || selectedCheckboxes[`${record.key}-delete`]}
-        />
-      ),
-    },
-    {
-      title: t('create'),
-      dataIndex: 'create',
-      align: 'center',
-      render: (_, record) => <Checkbox checked={selectedCheckboxes[`${record.key}-create`]} onChange={(e) => handleCheckboxChange(e, record, 'create')} />,
-    },
-    {
-      title: t('edit'),
-      dataIndex: 'edit',
-      align: 'center',
-      render: (_, record) => <Checkbox checked={selectedCheckboxes[`${record.key}-edit`]} onChange={(e) => handleCheckboxChange(e, record, 'edit')} />,
-    },
-    {
-      title: t('delete'),
-      dataIndex: 'delete',
-      align: 'center',
-      render: (_, record) => <Checkbox checked={selectedCheckboxes[`${record.key}-delete`]} onChange={(e) => handleCheckboxChange(e, record, 'delete')} />,
-    },
+  const makeCheckboxCell = (colName: string, isViewCol = false) => (cellData: any) => {
+    const record: EditRoleDataType = cellData.data;
+    const isChecked = selectedCheckboxes[`${record.key}-${colName}`] ?? false;
+    const isDisabled =
+      isViewCol &&
+      (selectedCheckboxes[`${record.key}-create`] || selectedCheckboxes[`${record.key}-edit`] || selectedCheckboxes[`${record.key}-delete`]);
+    return (
+      <input
+        type='checkbox'
+        checked={isChecked}
+        disabled={isDisabled}
+        onChange={(e) => handleCheckboxChange(e.target.checked, record, colName)}
+        style={{ width: 16, height: 16, cursor: isDisabled ? 'not-allowed' : 'pointer', accentColor: '#1B3C73' }}
+      />
+    );
+  };
+
+  const columns = [
+    { dataField: 'moduleName', caption: 'module_name', addition: { minWidth: 150 } },
+    { dataField: 'view',   caption: 'view',   addition: { alignment: 'center' as const, width: 80 },  cellRender: makeCheckboxCell('view', true) },
+    { dataField: 'create', caption: 'create', addition: { alignment: 'center' as const, width: 80 },  cellRender: makeCheckboxCell('create') },
+    { dataField: 'edit',   caption: 'edit',   addition: { alignment: 'center' as const, width: 80 },  cellRender: makeCheckboxCell('edit') },
+    { dataField: 'delete', caption: 'delete', addition: { alignment: 'center' as const, width: 80 },  cellRender: makeCheckboxCell('delete') },
   ];
 
   const submitHandler = async (formData: EditProfileProps) => {
@@ -224,25 +209,31 @@ const EditProfileForm: React.FC<EditGeneralFormProps> = ({ onClose, onFormReset,
   }, [selectedRowData.id]);
 
   useEffect(() => {
-    if (getPermissionModulesValue) {
-      const modules = Object.entries(getPermissionModulesValue)?.map(([key, value]) => {
-        const moduleInfo = getProfileData?.moduleInfo?.find((info: any) => info.moduleId === Number(key));
+    const moduleList = Array.isArray(getPermissionModulesValue)
+      ? getPermissionModulesValue
+      : Array.isArray(getPermissionModulesValue?.data)
+        ? getPermissionModulesValue.data
+        : null;
+
+    if (moduleList) {
+      const modules = moduleList.map((item: { moduleId: number; moduleName: string }) => {
+        const moduleInfo = getProfileData?.moduleInfo?.find((info: any) => info.moduleId === item.moduleId);
         const permissionScore = moduleInfo?.permissionScore || 0;
         const checkboxes = convertPermissionScoreToCheckboxes(permissionScore);
 
         return {
-          key,
-          moduleName: t(value as string),
-          fieldKey: value as string,
+          key: String(item.moduleId),
+          moduleName: t(item.moduleName),
+          fieldKey: item.moduleName,
           ...checkboxes,
           permissionScore,
         };
       });
-      const sortedModules = modules?.sort((a, b) => a.moduleName.localeCompare(b.moduleName));
+      const sortedModules = modules?.sort((a: EditRoleDataType, b: EditRoleDataType) => a.moduleName.localeCompare(b.moduleName));
       setData(sortedModules);
 
       const initialCheckboxes: Record<string, boolean> = {};
-      modules.forEach((module) => {
+      modules.forEach((module: EditRoleDataType) => {
         initialCheckboxes[`${module.key}-view`] = module.view;
         initialCheckboxes[`${module.key}-create`] = module.create;
         initialCheckboxes[`${module.key}-edit`] = module.edit;
@@ -299,23 +290,19 @@ const EditProfileForm: React.FC<EditGeneralFormProps> = ({ onClose, onFormReset,
             </Row>
             <Row>
               <Col span={24}>
-                <Table
-                  dataSource={data?.map((record) => ({
-                    ...record,
-                    key: record.key.toString(),
-                  }))}
+                <CDataGrid
+                  gridKey='edit-profile-permissions'
+                  stateStore='NO'
+                  data={data}
                   columns={columns}
-                  pagination={{
-                    current: currentPage,
-                    pageSize: viewPageSizes,
-                    total: data.length,
-                    showSizeChanger: false,
-                    showQuickJumper: false,
-                    onChange: (page) => setCurrentPage(page),
-                    showTotal: (total) => `${t('total')} ${total} ${t('module')}`,
-                    size: 'small',
-                    simple: true,
-                  }}
+                  height='45vh'
+                  editButtonVisible={false}
+                  deleteButtonVisible={false}
+                  addLogicVisible={false}
+                  toolbarVisible={false}
+                  paging={true}
+                  pageSize={4}
+                  allowSorting={false}
                 />
               </Col>
             </Row>

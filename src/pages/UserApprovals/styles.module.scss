@@ -1,0 +1,47 @@
+.c-user-manager {
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+}
+
+.status-pending { color: #d46b08; font-weight: 600; }
+.status-active  { color: #49aa19; font-weight: 600; }
+.status-passive { color: #d32029; font-weight: 600; }
+
+.action-group {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &:not(:disabled):hover { opacity: 0.8; }
+
+  &--primary {
+    background-color: #1B3C73;
+    color: #fff;
+  }
+  &--danger {
+    background-color: #5c1212;
+    color: #fff;
+  }
+  &--default {
+    background-color: #2a2a2a;
+    color: #ccc;
+    border: 1px solid #444;
+  }
+}

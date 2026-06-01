@@ -1,0 +1,32 @@
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+
+  tr {
+    border-bottom: 1px solid #2a2a2a;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+  }
+
+  &__label {
+    padding: 8px 12px;
+    color: #888;
+    width: 35%;
+    white-space: nowrap;
+    border-right: 1px solid #2a2a2a;
+  }
+
+  &__value {
+    padding: 8px 12px;
+    color: #fff;
+    word-break: break-word;
+  }
+}

@@ -1,19 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button, Table, Tag, Popconfirm, Tabs, Space, Tooltip, message } from 'antd';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  MailOutlined,
-  StopOutlined,
-  PlayCircleOutlined,
-  ClockCircleOutlined,
-} from '@ant-design/icons';
+import { Tabs } from 'antd';
+import { toast } from 'react-toastify';
+import CDataGrid from '../../components/CDataGrid';
+import styles from './styles.module.scss';
 import { useAppDispatch } from '../../store/hooks';
 import { getAllUsers, approveUser, rejectUser, resendApproval, setUserStatus } from '../../store/pendingUsers';
 import PageTitle from '../../components/PageTitle';
 import Loader from '../../components/Loader';
 import UserManagement from '../../assets/svg/UserManagement.svg?react';
-import styles from '../UserManager/styles.module.scss';
 
 type UserRow = {
   id: string;
@@ -79,7 +73,7 @@ export default function UserApprovals() {
   const handleResend = (id: string) =>
     withLoading(id, async () => {
       const res = await dispatch(resendApproval({ id }));
-      if ((res.payload as any)?.success) message.success('QR e-postası gönderildi');
+      if ((res.payload as any)?.success) toast.success('QR e-postası gönderildi');
       return res;
     });
 
@@ -100,117 +94,68 @@ export default function UserApprovals() {
 
   const columns = [
     {
-      title: 'Ad Soyad',
-      key: 'fullName',
-      render: (_: any, row: UserRow) => `${row.name} ${row.surname}`,
+      dataField: 'fullName',
+      caption: 'name',
+      cellRender: (cellData: any) => `${cellData.data.name} ${cellData.data.surname}`,
+      addition: { minWidth: 120 },
     },
-    { title: 'E-posta', dataIndex: 'email', key: 'email' },
-    { title: 'Telefon', dataIndex: 'phoneNumber', key: 'phoneNumber' },
+    { dataField: 'email', caption: 'email', addition: { minWidth: 160 } },
+    { dataField: 'phoneNumber', caption: 'phone', addition: { minWidth: 120 } },
     {
-      title: 'Kayıt Tarihi',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      render: (v: string) => (v ? new Date(v).toLocaleString('tr-TR') : '-'),
+      dataField: 'createdAt',
+      caption: 'registered_at',
+      addition: { minWidth: 130 },
+      cellRender: (cellData: any) =>
+        cellData.value ? new Date(cellData.value).toLocaleString('tr-TR') : '-',
     },
     {
-      title: 'Durum',
-      key: 'durum',
-      render: (_: any, row: UserRow) => {
-        const s = getUserStatus(row);
+      dataField: 'status',
+      caption: 'status',
+      addition: { alignment: 'center' as const, width: 130 },
+      cellRender: (cellData: any) => {
+        const s = getUserStatus(cellData.data);
         const { label, color } = STATUS_MAP[s];
-        const icon =
-          s === 'pending' ? <ClockCircleOutlined /> : s === 'active' ? <CheckCircleOutlined /> : <StopOutlined />;
-        return (
-          <Tag color={color} icon={icon}>
-            {label}
-          </Tag>
-        );
+        return <span className={styles[`status-${s}`]} style={{ color }}>{label}</span>;
       },
     },
     {
-      title: 'İşlemler',
-      key: 'actions',
-      render: (_: any, row: UserRow) => {
+      dataField: 'actions',
+      caption: 'actions',
+      addition: { alignment: 'center' as const, minWidth: 200 },
+      cellRender: (cellData: any) => {
+        const row: UserRow = cellData.data;
         const s = getUserStatus(row);
         const busy = loadingId === row.id;
 
-        if (s === 'pending') {
-          return (
-            <Space>
-              <Popconfirm
-                title={`${row.name} ${row.surname} onaylansın mı?`}
-                onConfirm={() => handleApprove(row.id)}
-                okText="Onayla"
-                cancelText="Vazgeç">
-                <Button type="primary" size="small" loading={busy} icon={<CheckCircleOutlined />}>
-                  Onayla
-                </Button>
-              </Popconfirm>
-              <Popconfirm
-                title={`${row.name} ${row.surname} reddedilsin mi?`}
-                onConfirm={() => handleReject(row.id)}
-                okText="Reddet"
-                okButtonProps={{ danger: true }}
-                cancelText="Vazgeç">
-                <Button danger size="small" loading={busy} icon={<CloseCircleOutlined />}>
-                  Reddet
-                </Button>
-              </Popconfirm>
-            </Space>
-          );
-        }
+        const btn = (label: string, variant: 'primary' | 'danger' | 'default', onClick: () => void) => (
+          <button
+            className={`${styles['action-btn']} ${styles[`action-btn--${variant}`]}`}
+            onClick={onClick}
+            disabled={busy}
+          >
+            {label}
+          </button>
+        );
 
-        if (s === 'active') {
-          return (
-            <Space>
-              <Popconfirm
-                title={`${row.name} ${row.surname} pasife alınsın mı? Kullanıcı giriş yapamaz.`}
-                onConfirm={() => handleToggleStatus(row.id, false)}
-                okText="Pasife Al"
-                okButtonProps={{ danger: true }}
-                cancelText="Vazgeç">
-                <Button danger size="small" loading={busy} icon={<StopOutlined />}>
-                  Pasife Al
-                </Button>
-              </Popconfirm>
-              <Tooltip title="QR kodunu yeniden e-posta ile gönder">
-                <Popconfirm
-                  title="QR kodu tekrar e-posta ile gönderilsin mi?"
-                  onConfirm={() => handleResend(row.id)}
-                  okText="Gönder"
-                  cancelText="Vazgeç">
-                  <Button size="small" loading={busy} icon={<MailOutlined />}>
-                    QR Gönder
-                  </Button>
-                </Popconfirm>
-              </Tooltip>
-            </Space>
-          );
-        }
+        if (s === 'pending') return (
+          <div className={styles['action-group']}>
+            {btn('Onayla', 'primary', () => window.confirm(`${row.name} ${row.surname} onaylansın mı?`) && handleApprove(row.id))}
+            {btn('Reddet', 'danger',  () => window.confirm(`${row.name} ${row.surname} reddedilsin mi?`)  && handleReject(row.id))}
+          </div>
+        );
+
+        if (s === 'active') return (
+          <div className={styles['action-group']}>
+            {btn('Pasife Al', 'danger',   () => window.confirm(`${row.name} ${row.surname} pasife alınsın mı?`) && handleToggleStatus(row.id, false))}
+            {btn('QR Gönder', 'default', () => window.confirm('QR kodu tekrar gönderilsin mi?') && handleResend(row.id))}
+          </div>
+        );
 
         return (
-          <Space>
-            <Popconfirm
-              title={`${row.name} ${row.surname} aktife alınsın mı?`}
-              onConfirm={() => handleToggleStatus(row.id, true)}
-              okText="Aktife Al"
-              cancelText="Vazgeç">
-              <Button type="primary" size="small" loading={busy} icon={<PlayCircleOutlined />}>
-                Aktife Al
-              </Button>
-            </Popconfirm>
-            <Tooltip title="QR kodunu yeniden e-posta ile gönder">
-              <Popconfirm
-                title="QR kodu tekrar e-posta ile gönderilsin mi?"
-                onConfirm={() => handleResend(row.id)}
-                okText="Gönder"
-                cancelText="Vazgeç">
-                <Button size="small" loading={busy} icon={<MailOutlined />}>
-                  QR Gönder
-                </Button>
-              </Popconfirm>
-            </Tooltip>
-          </Space>
+          <div className={styles['action-group']}>
+            {btn('Aktife Al',  'primary', () => window.confirm(`${row.name} ${row.surname} aktife alınsın mı?`) && handleToggleStatus(row.id, true))}
+            {btn('QR Gönder', 'default', () => window.confirm('QR kodu tekrar gönderilsin mi?') && handleResend(row.id))}
+          </div>
         );
       },
     },
@@ -227,16 +172,10 @@ export default function UserApprovals() {
     <section className={styles['c-user-manager']}>
       <PageTitle type="data" svg={<UserManagement />} title="Kullanıcı Yönetimi" />
 
-      <div style={{ marginBottom: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <Tag color="orange" icon={<ClockCircleOutlined />}>
-          Onay Bekliyor — Kaydoldu, admin onayı bekleniyor
-        </Tag>
-        <Tag color="green" icon={<CheckCircleOutlined />}>
-          Aktif — Onaylandı, giriş yapabilir
-        </Tag>
-        <Tag color="red" icon={<StopOutlined />}>
-          Pasif — Girişe kapalı (reddedildi veya devre dışı bırakıldı)
-        </Tag>
+      <div className={styles['legend']}>
+        <span className={styles['status-pending']}>⏱ Onay Bekliyor — Kaydoldu, admin onayı bekleniyor</span>
+        <span className={styles['status-active']}>✓ Aktif — Onaylandı, giriş yapabilir</span>
+        <span className={styles['status-passive']}>✕ Pasif — Girişe kapalı</span>
       </div>
 
       <Tabs
@@ -249,12 +188,17 @@ export default function UserApprovals() {
       {isLoading ? (
         <Loader />
       ) : (
-        <Table
-          dataSource={filtered}
+        <CDataGrid
+          gridKey='user-approvals'
+          stateStore='NO'
+          data={filtered}
           columns={columns}
-          rowKey="id"
-          locale={{ emptyText: 'Kullanıcı bulunamadı' }}
-          pagination={{ pageSize: 20 }}
+          editButtonVisible={false}
+          deleteButtonVisible={false}
+          addLogicVisible={false}
+          height='72vh'
+          paging={true}
+          pageSize={20}
         />
       )}
     </section>

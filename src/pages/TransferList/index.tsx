@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Col, Form, Row, DatePicker, message, Select } from 'antd';
+import { Col, Form, Row, DatePicker, Select } from 'antd';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { Formik, FormikProps } from 'formik';
 import dayjs from 'dayjs';
@@ -69,7 +70,7 @@ export default function TransferList({ onFormReset, shouldResetForm }: any) {
           startDateVal = now.startOf('month');
           break;
         default:
-          message.error('Invalid date value');
+          toast.error('Invalid date value');
           return;
       }
     } else {
@@ -77,7 +78,7 @@ export default function TransferList({ onFormReset, shouldResetForm }: any) {
       endDateVal = dayjs(endDate).add(1, 'day');
 
       if (startDateVal.isAfter(endDateVal)) {
-        message.error(t('isAfterStartMessage'));
+        toast.error(t('isAfterStartMessage'));
         return;
       }
     }
@@ -105,7 +106,7 @@ export default function TransferList({ onFormReset, shouldResetForm }: any) {
       const { exportToExcel } = await import('../../utils/excel-export');
       exportToExcel('transferList', filteredData, 'transferList.xlsx', t);
     } catch (error) {
-      message.error(t('exportError'));
+      toast.error(t('exportError'));
     }
   };
 

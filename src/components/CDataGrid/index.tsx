@@ -19,9 +19,6 @@ import DataGrid, {
   Summary,
 } from 'devextreme-react/data-grid';
 import { useTranslation } from 'react-i18next';
-import { Switch } from 'antd';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import { getEncryptModuleData } from '../../utils/general';
 import { searchEditorOptions, columnChooserModes } from '../../db';
 import { columnChooserConfig } from '../../db/Configs';
@@ -34,7 +31,6 @@ import ReloadOutlined from '../../assets/svg/ReloadOutlined.svg?react';
 import LuRefresh from '../../assets/svg/LuRefresh.svg?react';
 import ExcelExportIcon from '../../assets/svg/ExcelExportIcon.svg?react';
 import styles from './styles.module.scss';
-dayjs.extend(utc);
 
 const CDataGrid: React.FC<CDataGridProps> = ({
   children,
@@ -144,7 +140,7 @@ const CDataGrid: React.FC<CDataGridProps> = ({
             alignment={column.addition?.alignment ? column.addition.alignment : 'left'}
             key={column.dataField}
             dataField={column.dataField}
-            caption={t(column.caption)}
+            caption={typeof column.caption === 'string' ? t(column.caption) : (column.caption ?? '')}
             allowSorting={allowSorting}
             {...column.addition}
             {...(column.addition && column.addition.minWidth ? column.addition.minWidth : { minWidth: 50 })}
@@ -153,16 +149,18 @@ const CDataGrid: React.FC<CDataGridProps> = ({
         ))}
         {handleEnable && editTrue && (
           <Column
-            cellRender={(cellData) => (
-              <Switch
-                className={
-                  cellData.data.status === 1 || cellData.data.status === true ? `${styles['c-datagrid__enabledButton']} ${styles['on']}` : `${styles['c-datagrid__enabledButton']} ${styles['off']}`
-                }
-                checked={cellData.data.status === 1 || cellData.data.status === true ? true : false}
-                onChange={() => handleEnable && handleEnable(cellData?.data)}
-                value={cellData.data.status === 1 || cellData.data.status === true ? true : false}
-              />
-            )}
+            cellRender={(cellData) => {
+              const isOn = cellData.data.status === 1 || cellData.data.status === true;
+              return (
+                <button
+                  type='button'
+                  role='switch'
+                  aria-checked={isOn}
+                  className={`${styles['c-datagrid__enabledButton']} ${styles[isOn ? 'on' : 'off']}`}
+                  onClick={() => handleEnable && handleEnable(cellData?.data)}
+                />
+              );
+            }}
             alignment='center'
             caption={t('status')}
             width={125}
@@ -171,14 +169,18 @@ const CDataGrid: React.FC<CDataGridProps> = ({
         )}
         {handleStatusChange && editTrue && (
           <Column
-            cellRender={(cellData) => (
-              <Switch
-                className={cellData.data.status === 2 ? `${styles['c-datagrid__enabledButton']} ${styles['on']}` : `${styles['c-datagrid__enabledButton']} ${styles['off']}`}
-                checked={cellData.data.status === 2 ? true : false}
-                onChange={() => handleStatusChange && handleStatusChange(cellData?.data)}
-                value={cellData.data.status === 2 ? true : false}
-              />
-            )}
+            cellRender={(cellData) => {
+              const isOn = cellData.data.status === 2;
+              return (
+                <button
+                  type='button'
+                  role='switch'
+                  aria-checked={isOn}
+                  className={`${styles['c-datagrid__enabledButton']} ${styles[isOn ? 'on' : 'off']}`}
+                  onClick={() => handleStatusChange && handleStatusChange(cellData?.data)}
+                />
+              );
+            }}
             alignment='center'
             caption={t('status')}
             width={125}

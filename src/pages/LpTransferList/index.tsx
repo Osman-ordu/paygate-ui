@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Col, Form, Row, DatePicker, Select, message } from 'antd';
+import { Col, Form, Row, DatePicker, Select } from 'antd';
+import { toast } from 'react-toastify';
 import { Formik, FormikProps } from 'formik';
 import dayjs from 'dayjs';
 import ArrayStore from 'devextreme/data/array_store';
@@ -42,7 +43,7 @@ export default function LpTransferList({ onFormReset, shouldResetForm }: any) {
       const { exportToExcel } = await import('../../utils/excel-export');
       exportToExcel('lpTransferList', filteredData, 'lpTransferList.xlsx', t);
     } catch (error) {
-      message.error(t('exportError'));
+      toast.error(t('exportError'));
     }
   };
 
@@ -72,7 +73,7 @@ export default function LpTransferList({ onFormReset, shouldResetForm }: any) {
           startDateVal = now.startOf('month');
           break;
         default:
-          message.error('Invalid date value');
+          toast.error('Invalid date value');
           return;
       }
     } else {
@@ -80,7 +81,7 @@ export default function LpTransferList({ onFormReset, shouldResetForm }: any) {
       endDateVal = dayjs(endDate).add(1, 'day');
 
       if (startDateVal.isAfter(endDateVal)) {
-        message.error(t('isAfterStartMessage'));
+        toast.error(t('isAfterStartMessage'));
         return;
       }
     }

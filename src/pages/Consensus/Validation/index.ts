@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { ConsensusProps } from '../../../dbProps';
-import { YupV } from '../../../utils/general';
+import * as Yup from 'yup';
 
 export const ConsensusInitialValue = (): ConsensusProps => {
   const startDate = dayjs().startOf('day').toISOString();
@@ -12,8 +12,8 @@ export const ConsensusInitialValue = (): ConsensusProps => {
   };
 };
 
-export const ConsensusValidationSchema = YupV.object().shape({
-  currency: YupV.string().required('Currency'),
-  endDate: YupV.string().required('End Date'),
-  startDate: YupV.string().required('Start Date'),
+export const ConsensusValidationSchema = Yup.object().shape({
+  currency: Yup.string().required('Currency'),
+  endDate: Yup.string().required('End Date'),
+  startDate: Yup.string().required('Start Date'),
 });
